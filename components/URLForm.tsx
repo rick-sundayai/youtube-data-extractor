@@ -4,16 +4,20 @@ import { useState } from "react";
 import { getVideoDetails } from "../lib/actions";
 import Image from "next/image";
 
-interface YouTubeVideo {
-  id: string;
-  title?: string;
-  description?: string;
-  thumbnail?: string;
+interface VideoDetails {
+  id: string | null | undefined;
+  title: string | null | undefined;
+  description: string | null | undefined;
+  duration: string | null | undefined;
+  views: string | null | undefined;
+  likes: string | null | undefined;
+  comments: string | null | undefined;
+  thumbnail: string | null | undefined;
 }
 
 const URLForm = () => {
   const [url, setURL] = useState("");
-  const [videoDetails, setVideoDetails] = useState<YouTubeVideo | null>(null);
+  const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,13 +27,16 @@ const URLForm = () => {
     try {
       const videoData = await getVideoDetails(url);
 
-      if (videoData && videoData.length > 0) {
-        const { id, snippet } = videoData[0];
+      if (videoData) {
         setVideoDetails({
-          id: id,
-          title: snippet?.title || "",
-          description: snippet?.description || "",
-          thumbnail: snippet?.thumbnails?.default?.url || "",
+          id: videoData.id,
+          title: videoData.title || "",
+          description: videoData.description || "",
+          duration: videoData.duration || "",
+          views: videoData.viewCount || "0",
+          likes: videoData.likeCount || "0",
+          comments: videoData.commentCount || "0",
+          thumbnail: videoData.thumbnailUrl || ""
         });
       } else {
         setError("No video found with that URL. Please check the URL and try again.");
@@ -86,6 +93,10 @@ const URLForm = () => {
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{videoDetails.title}</h2>
             <p className="text-gray-600 dark:text-gray-400">{videoDetails.description}</p>
+            <p className="text-gray-600 dark:text-gray-400">Duration: {videoDetails.duration}</p>
+            <p className="text-gray-600 dark:text-gray-400">Views: {videoDetails.views}</p>
+            <p className="text-gray-600 dark:text-gray-400">Likes: {videoDetails.likes}</p>
+            <p className="text-gray-600 dark:text-gray-400">Comments: {videoDetails.comments}</p>
           </div>
           <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
             <Image
