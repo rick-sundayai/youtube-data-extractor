@@ -1,29 +1,34 @@
-# Project Plan: YouTube Transcript to JSON Tool
+# YouTube Transcript to JSON Tool
 
-## 1. Project Setup
+This application allows users to input a YouTube URL and retrieve the transcript of the video in JSON format.
 
-- Create a new Next.js project:
+The application uses the YouTube Data API v3 to retrieve the transcript of the video and the Supabase client library to store the transcript in a Supabase database.
 
-  npx create-next-app@latest youtube-data-extractor
-  cd youtube-data-extractor
+The application is built using Next.js and is hosted on Vercel.
 
-- Initialize Git repository:
+## Features
 
-  git init
-  git add .
-  git commit -m "first commit"
-  git branch -M main
-  git remote add origin https://github.com/rick-sundayai/youtube-data-extractor.git
-  git push -u origin main
+- Retrieve the transcript of a YouTube video in JSON format
+- Store the transcript in a Supabase database
+- Hosted on Vercel
 
-- Install Supabase client library:
+## Usage
 
-  npm install @supabase/supabase-js
+1. Enter a YouTube URL in the input field
+2. Click the "Submit" button
+3. The transcript of the video will be retrieved and stored in a Supabase database
 
-## 2. Supabase Setup
+## Development
 
-- Create a Supabase project at [https://supabase.com/](https://supabase.com/).
-- Get the Supabase URL and API key.
-- Create a `.env.local` file in your Next.js project and add the following from Supabase UI:
+1. Clone the repository
+2. Install the dependencies by running `npm install`
+3. Start the development server by running `npm run dev`
+4. Open the application in a web browser by navigating to `http://localhost:3000`
 
-## 3. Project Structure
+## Contributing
+
+Contributions are welcome. Please open an issue or submit a pull request to contribute to the project.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
